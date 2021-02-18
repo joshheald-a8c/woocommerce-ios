@@ -10,7 +10,7 @@ final class ShippingLabelFormViewController: UIViewController {
     /// Init
     ///
     init(order: Order) {
-        viewModel = ShippingLabelFormViewModel(order: order)
+        viewModel = ShippingLabelFormViewModel(originAddress: nil, destinationAddress: order.shippingAddress)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -106,8 +106,10 @@ private extension ShippingLabelFormViewController {
                        icon: .shippingImage,
                        title: Localization.shipFromCellTitle,
                        body: "To be implemented",
-                       buttonTitle: Localization.continueButtonInCells) {
-
+                       buttonTitle: Localization.continueButtonInCells) { [weak self] in
+            let shippingLabelAddress = self?.viewModel.originAddress
+            let shippingAddressValidationVC = ShippingLabelAddressFormViewController(type: .origin, address: shippingLabelAddress)
+            self?.navigationController?.pushViewController(shippingAddressValidationVC, animated: true)
         }
     }
 
@@ -116,8 +118,10 @@ private extension ShippingLabelFormViewController {
                        icon: .houseOutlinedImage,
                        title: Localization.shipToCellTitle,
                        body: "To be implemented",
-                       buttonTitle: Localization.continueButtonInCells) {
-
+                       buttonTitle: Localization.continueButtonInCells) { [weak self] in
+            let shippingLabelAddress = self?.viewModel.destinationAddress
+            let shippingAddressValidationVC = ShippingLabelAddressFormViewController(type: .destination, address: shippingLabelAddress)
+            self?.navigationController?.pushViewController(shippingAddressValidationVC, animated: true)
         }
     }
 

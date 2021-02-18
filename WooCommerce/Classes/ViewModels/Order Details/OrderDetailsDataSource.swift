@@ -450,7 +450,7 @@ private extension OrderDetailsDataSource {
         cell.configure(style: .primary,
                        title: Titles.createShippingLabel,
                        bottomSpacing: 0) {
-            // TODO-2972: present shipping label creation form
+            self.onCellAction?(.createShippingLabel, nil)
         }
         cell.hideSeparator()
     }
@@ -787,10 +787,6 @@ extension OrderDetailsDataSource {
         }()
 
         let shippingLabelSections: [Section] = {
-            guard ServiceLocator.featureFlagService.isFeatureFlagEnabled(.shippingLabelsRelease1) else {
-                return []
-            }
-
             guard shippingLabels.isNotEmpty else {
                 return []
             }
@@ -1280,6 +1276,7 @@ extension OrderDetailsDataSource {
         case summary
         case issueRefund
         case reprintShippingLabel(shippingLabel: ShippingLabel)
+        case createShippingLabel
         case shippingLabelTrackingMenu(shippingLabel: ShippingLabel, sourceView: UIView)
     }
 

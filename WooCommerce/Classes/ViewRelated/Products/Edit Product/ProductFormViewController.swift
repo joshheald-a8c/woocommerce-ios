@@ -272,7 +272,10 @@ final class ProductFormViewController<ViewModel: ProductFormViewModelProtocol>: 
             case .reviews:
                 ServiceLocator.analytics.track(.productDetailViewReviewsTapped)
                 showReviews()
-            case .downloadableFiles:
+            case .downloadableFiles(_, let isEditable):
+                guard isEditable else {
+                    return
+                }
                 ServiceLocator.analytics.track(.productDetailViewDownloadableFilesTapped)
                 showDownloadableFiles()
             case .linkedProducts(_, let isEditable):
@@ -339,12 +342,14 @@ final class ProductFormViewController<ViewModel: ProductFormViewModelProtocol>: 
                 ServiceLocator.analytics.track(.productDetailViewGroupedProductsTapped)
                 editGroupedProducts()
                 break
-            case .variations:
+            case .variations(let row):
                 ServiceLocator.analytics.track(.productDetailViewVariationsTapped)
-                guard let product = product as? EditableProductModel else {
+                guard let product = product as? EditableProductModel, row.isActionable else {
                     return
                 }
-                let variationsViewController = ProductVariationsViewController(product: product.product,
+                let variationsViewModel = ProductVariationsViewModel(product: product.product, isAddProductVariationsEnabled: isAddProductVariationsEnabled)
+                let variationsViewController = ProductVariationsViewController(viewModel: variationsViewModel,
+                                                                               product: product.product,
                                                                                formType: viewModel.formType,
                                                                                isAddProductVariationsEnabled: isAddProductVariationsEnabled)
                 show(variationsViewController, sender: self)
@@ -936,13 +941,16 @@ private extension ProductFormViewController {
         let command = ProductTypeBottomSheetListSelectorCommand(selected: viewModel.productModel.productType) { [weak self] (selectedProductType) in
             self?.dismiss(animated: true, completion: nil)
 
-            if let originalProductType = self?.product.productType {
-                ServiceLocator.analytics.track(.productTypeChanged, withProperties: [
-                    "from": originalProductType.rawValue,
-                    "to": selectedProductType.rawValue
-                ])
+            guard let originalProductType = self?.product.productType else {
+                return
             }
-            self?.presentProductTypeChangeAlert(completion: { (change) in
+
+            ServiceLocator.analytics.track(.productTypeChanged, withProperties: [
+                "from": originalProductType.rawValue,
+                "to": selectedProductType.rawValue
+            ])
+
+            self?.presentProductTypeChangeAlert(for: originalProductType, completion: { (change) in
                 guard change == true else {
                     return
                 }
