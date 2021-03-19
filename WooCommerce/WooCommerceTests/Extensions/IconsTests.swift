@@ -420,4 +420,24 @@ final class IconsTests: XCTestCase {
     func test_emptyBoxImage_is_not_nil() {
         XCTAssertNotNil(UIImage.emptyBoxImage)
     }
+
+    func test_curvedRectangle_is_not_nil() {
+        XCTAssertNotNil(UIImage.curvedRectangle)
+    }
+
+    func test_prologueAnalyticsImage_is_not_nil() {
+        XCTAssertNotNil(UIImage.prologueAnalyticsImage)
+    }
+
+    func test_prologueOrdersImage_is_not_nil() {
+        XCTAssertNotNil(UIImage.prologueOrdersImage)
+    }
+
+    func test_prologueProductsImage_is_not_nil() {
+        XCTAssertNotNil(UIImage.prologueProductsImage)
+    }
+
+    func test_prologueReviewsImage_is_not_nil() {
+        XCTAssertNotNil(UIImage.prologueReviewsImage)
+    }
 }
