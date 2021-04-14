@@ -113,7 +113,7 @@ private extension CouponListMapperTests {
     func mapLoadAllCouponsResponse() throws -> [Coupon] {
         return try mapCoupons(from: "coupons-all")
     }
-    
+
     /// Returns the CouponsMapper output from `coupons-minimal.json`
     ///
     func mapLoadMinimalCouponsResponse() throws -> [Coupon] {
