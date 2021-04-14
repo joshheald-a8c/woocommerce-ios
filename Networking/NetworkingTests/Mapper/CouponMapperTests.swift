@@ -1,38 +1,31 @@
 import XCTest
 @testable import Networking
 
-class CouponListMapperTests: XCTestCase {
+class CouponMapperTests: XCTestCase {
 
     /// Dummy Site ID.
     ///
-    private let dummySiteID: Int64 = 12983476
+    fileprivate let dummySiteID: Int64 = 12983476
 
-    /// Verifies that the whole list is parsed.
+    /// Verifies that the coupon is parsed.
     ///
-    func test_CouponsList_map_parses_all_coupons_in_response() throws {
-        let coupons = try mapLoadAllCouponsResponse()
-        XCTAssertEqual(coupons.count, 2)
+    func test_Coupon_map_parses_all_coupons_in_response() throws {
+        let coupon = try mapRetrieveCouponResponse()
+        XCTAssertNotNil(coupon)
     }
 
-    /// Verifies that the `siteID` is added in the mapper, to all results, because it's not provided by the API endpoint
+    /// Verifies that the `siteID` is added in the mapper, because it's not provided by the API endpoint
     ///
     func test_CouponsList_map_includes_siteID_in_parsed_results() throws {
-        let coupons = try mapLoadAllCouponsResponse()
-        guard coupons.count > 0 else {
-            XCTFail("No coupons parsed")
-            return
-        }
+        let coupon = try mapRetrieveCouponResponse()
 
-        for coupon in coupons {
-            XCTAssertEqual(coupon.siteId, dummySiteID)
-        }
+        XCTAssertEqual(coupon.siteId, dummySiteID)
     }
 
     /// Verifies that the fields are all parsed correctly
     ///
     func test_CouponsList_map_parses_all_fields_in_result() throws {
-        let coupons = try mapLoadAllCouponsResponse()
-        let coupon = coupons[0]
+        let coupon = try mapRetrieveCouponResponse()
 
         let dateFormatter = DateFormatter.Defaults.dateTimeFormatter
 
@@ -64,8 +57,7 @@ class CouponListMapperTests: XCTestCase {
     /// Verifies that nulls in optional fields are parsed correctly
     ///
     func test_CouponsList_map_accepts_nulls_in_expected_optional_fields() throws {
-        let coupons = try mapLoadMinimalCouponsResponse()
-        let coupon = coupons[0]
+        let coupon = try mapRetrieveMinimalCouponResponse()
 
         let dateFormatter = DateFormatter.Defaults.dateTimeFormatter
 
@@ -98,27 +90,29 @@ class CouponListMapperTests: XCTestCase {
 
 // MARK: - Test Helpers
 ///
-private extension CouponListMapperTests {
+private extension CouponMapperTests {
 
-    /// Returns the CouponListMapper output upon receiving `filename` (Data Encoded)
+    /// Returns the CouponMapper output upon receiving `filename` (Data Encoded)
     ///
-    func mapCoupons(from filename: String) throws -> [Coupon] {
+    func mapCoupon(from filename: String) throws -> Coupon {
         guard let response = Loader.contentsOf(filename) else {
-            return []
+            throw FileNotFoundError()
         }
 
-        return try CouponListMapper(siteID: dummySiteID).map(response: response)
+        return try CouponMapper(siteID: dummySiteID).map(response: response)
     }
 
-    /// Returns the CouponsMapper output from `coupons-all.json`
+    /// Returns the CouponMapper output from `coupon.json`
     ///
-    func mapLoadAllCouponsResponse() throws -> [Coupon] {
-        return try mapCoupons(from: "coupons-all")
+    func mapRetrieveCouponResponse() throws -> Coupon {
+        return try mapCoupon(from: "coupon")
     }
 
-    /// Returns the CouponsMapper output from `coupons-minimal.json`
+    /// Returns the CouponMapper output from `coupon-minimal.json`
     ///
-    func mapLoadMinimalCouponsResponse() throws -> [Coupon] {
-        return try mapCoupons(from: "coupons-minimal")
+    func mapRetrieveMinimalCouponResponse() throws -> Coupon {
+        return try mapCoupon(from: "coupon-minimal")
     }
+
+    struct FileNotFoundError: Error {}
 }
