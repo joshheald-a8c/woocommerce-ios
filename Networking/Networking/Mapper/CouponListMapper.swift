@@ -7,20 +7,11 @@ struct CouponListMapper: Mapper {
     /// We're injecting this field by copying it in after parsing responses, because `siteID` is not returned in any of the Coupon endpoints.
     ///
     let siteID: Int64
-    
-    /// JSON decoder appropriate for `Coupon` responses.
-    ///
-    private static let decoder: JSONDecoder = {
-        let couponDecoder = JSONDecoder()
-        couponDecoder.keyDecodingStrategy = .convertFromSnakeCase
-        couponDecoder.dateDecodingStrategy = .formatted(DateFormatter.Defaults.dateTimeFormatter)
-        return couponDecoder
-    }()
 
     /// (Attempts) to convert a dictionary into `[Coupon]`.
     ///
     func map(response: Data) throws -> [Coupon] {
-        let coupons = try Self.decoder.decode(CouponListEnvelope.self, from: response).coupons
+        let coupons = try Coupon.decoder.decode(CouponListEnvelope.self, from: response).coupons
         return coupons.map { $0.copy(siteId: siteID) }
     }
 }
