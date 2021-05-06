@@ -4,12 +4,6 @@ import protocol Storage.StorageManagerType
 import class AutomatticTracks.CrashLogging
 
 
-struct CouponListCellViewModel {
-    var title: String
-    var subtitle: String
-    var accessiblityLabel: String
-}
-
 enum CouponListState {
     case initialized // ViewModel ready to recieve actions
     case loading // View should show ghost cells
@@ -118,9 +112,7 @@ final class CouponManagementListViewModel {
 
     func buildCouponViewModels() {
         couponViewModels = resultsController.fetchedObjects.map({ coupon in
-            return CouponListCellViewModel(title: coupon.code,
-                                           subtitle: coupon.description,
-                                           accessiblityLabel: coupon.description)
+            return CouponListCellViewModel(coupon: coupon)
         })
     }
 

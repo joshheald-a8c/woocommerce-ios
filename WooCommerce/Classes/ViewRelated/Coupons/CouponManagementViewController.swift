@@ -224,7 +224,7 @@ extension CouponManagementViewController: UITableViewDataSource {
     func configure(_ cell: TitleBodyTableViewCell?, with cellViewModel: CouponListCellViewModel) {
         cell?.titleLabel.text = cellViewModel.title
         cell?.bodyLabel.text = cellViewModel.subtitle
-        cell?.accessibilityLabel = cellViewModel.accessiblityLabel
+        cell?.accessibilityLabel = cellViewModel.accessibilityLabel
     }
 
 }
