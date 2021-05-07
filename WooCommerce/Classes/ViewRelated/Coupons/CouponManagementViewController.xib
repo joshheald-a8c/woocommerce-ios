@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CouponManagementViewController" customModule="WooCommerce" customModuleProvider="target">
             <connections>
+                <outlet property="addCouponButton" destination="VF6-yr-GAf" id="i1o-bK-cYD"/>
+                <outlet property="addCouponButtonContainer" destination="iJ3-ep-scM" id="se1-tw-ioc"/>
+                <outlet property="addCouponSeparator" destination="tQw-Ae-j3M" id="BlF-ef-qIR"/>
                 <outlet property="tableView" destination="1mE-SE-uK9" id="gDK-9r-EsX"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Jh9-wF-LZg"/>
             </connections>
@@ -20,20 +23,55 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1mE-SE-uK9">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </tableView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QR8-cO-K5A">
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJ3-ep-scM" userLabel="Add button container">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VF6-yr-GAf">
+                                    <rect key="frame" x="16" y="16" width="382" height="52"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="CXz-G9-H0a"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tQw-Ae-j3M" userLabel="Separator">
+                                    <rect key="frame" x="0.0" y="83.5" width="414" height="0.5"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="0.5" id="Ni5-Kr-sBD"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="tQw-Ae-j3M" secondAttribute="bottom" id="Bc8-cX-UB0"/>
+                                <constraint firstItem="VF6-yr-GAf" firstAttribute="leading" secondItem="iJ3-ep-scM" secondAttribute="leading" constant="16" id="DrY-xD-uqF"/>
+                                <constraint firstAttribute="trailing" secondItem="VF6-yr-GAf" secondAttribute="trailing" constant="16" id="VHR-Oq-nTn"/>
+                                <constraint firstItem="VF6-yr-GAf" firstAttribute="top" secondItem="iJ3-ep-scM" secondAttribute="top" constant="16" id="cMk-aa-aFs"/>
+                                <constraint firstAttribute="trailing" secondItem="tQw-Ae-j3M" secondAttribute="trailing" id="kWc-yp-0gL"/>
+                                <constraint firstAttribute="bottom" secondItem="VF6-yr-GAf" secondAttribute="bottom" constant="16" id="yly-31-fJV"/>
+                                <constraint firstItem="tQw-Ae-j3M" firstAttribute="leading" secondItem="iJ3-ep-scM" secondAttribute="leading" id="z8e-yb-9XC"/>
+                            </constraints>
+                        </view>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1mE-SE-uK9">
+                            <rect key="frame" x="0.0" y="84" width="414" height="768"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </tableView>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="1mE-SE-uK9" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="8hS-PH-Szg"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="1mE-SE-uK9" secondAttribute="bottom" id="Xci-eH-29p"/>
-                <constraint firstItem="1mE-SE-uK9" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ZjI-Dc-KKp"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1mE-SE-uK9" secondAttribute="trailing" id="h1p-cR-5re"/>
+                <constraint firstItem="QR8-cO-K5A" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Gxa-uQ-hS6"/>
+                <constraint firstAttribute="trailing" secondItem="QR8-cO-K5A" secondAttribute="trailing" id="XVI-5j-lZC"/>
+                <constraint firstItem="iJ3-ep-scM" firstAttribute="width" secondItem="vUN-kp-3ea" secondAttribute="width" id="dQo-6d-FQ0"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="top" secondItem="QR8-cO-K5A" secondAttribute="top" id="de1-OW-zOb"/>
+                <constraint firstAttribute="bottom" secondItem="QR8-cO-K5A" secondAttribute="bottom" id="v1Y-Mv-cjs"/>
             </constraints>
-            <point key="canvasLocation" x="101" y="49"/>
+            <point key="canvasLocation" x="100.00000000000001" y="48.883928571428569"/>
         </view>
     </objects>
     <resources>

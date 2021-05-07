@@ -4,6 +4,9 @@ import WordPressUI
 final class CouponManagementViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView?
+    @IBOutlet weak var addCouponButton: UIButton!
+    @IBOutlet weak var addCouponSeparator: UIView!
+    @IBOutlet weak var addCouponButtonContainer: UIView!
     private var viewModel: CouponManagementListViewModel!
 
     /// Set when an empty state view controller is displayed.
@@ -41,6 +44,8 @@ final class CouponManagementViewController: UIViewController {
         super.viewDidLoad()
         configureNavigation()
         configureTableView()
+        configureAddButton()
+        configureAddButtonSeparatorView()
         viewModel.viewDidLoad()
     }
 
@@ -99,6 +104,16 @@ private extension CouponManagementViewController {
     func registerTableViewCells() {
         tableView?.registerNib(for: TitleBodyTableViewCell.self)
     }
+
+    func configureAddButton() {
+        addCouponButton.setTitle(Localization.addNewCouponButtonTitle, for: .normal)
+        addCouponButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        addCouponButton.applySecondaryButtonStyle()
+    }
+
+    func configureAddButtonSeparatorView() {
+        addCouponSeparator.backgroundColor = .systemColor(.separator)
+    }
 }
 
 
@@ -134,7 +149,9 @@ extension CouponManagementViewController {
             message: .init(string: Localization.emptyStateMessage),
             image: .emptyCouponsImage,
             details: Localization.emptyStateDetails,
-            buttonTitle: Localization.emptyStateButtonTitle) { _ in }
+            buttonTitle: Localization.emptyStateButtonTitle) { [weak self] _ in
+            self?.addButtonTapped()
+        }
 
         displayEmptyStateViewController(emptyStateViewController)
         emptyStateViewController.configure(config)
@@ -169,6 +186,16 @@ extension CouponManagementViewController {
         emptyStateViewController.view.removeFromSuperview()
         emptyStateViewController.removeFromParent()
         self.emptyStateViewController = nil
+    }
+}
+
+
+// MARK: - Header add button
+//
+extension CouponManagementViewController {
+    @objc func addButtonTapped() {
+        let viewController = AddCouponViewController()
+        show(viewController, sender: self)
     }
 }
 
@@ -259,6 +286,12 @@ private extension CouponManagementViewController {
         static let title = NSLocalizedString(
             "Coupons",
             comment: "Coupon management coupon list screen title")
+
+        static let addNewCouponButtonTitle = NSLocalizedString(
+            "Add Coupon",
+            comment: "The text for the button to add a new coupon on " +
+                "the coupon management list. Positioned in the header " +
+                "of the list, full width of the screen.")
 
         static let emptyStateMessage = NSLocalizedString(
             "Everyone loves a deal",
