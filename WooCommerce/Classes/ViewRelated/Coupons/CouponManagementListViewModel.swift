@@ -8,6 +8,7 @@ enum CouponListState {
     case initialized // ViewModel ready to recieve actions
     case loading // View should show ghost cells
     case empty // View should display the empty state
+    case failed // View should display error in Notice
     case coupons // View should display the contents of `couponViewModels`
     case refreshing // View should display a top loading indicator and the contents of `couponViewModels`
     case loadingNextPage // View should display a bottom loading indicator and contents of `couponViewModels`
@@ -142,6 +143,16 @@ final class CouponManagementListViewModel {
     func refreshCoupons() {
         syncingCoordinator.resynchronize(reason: nil, onCompletion: nil)
     }
+
+    /// The ViewController can trigger a retry of the last sync if there is an error
+    ///
+    func retrySyncAfterError() {
+        if couponViewModels.isEmpty {
+            syncingCoordinator.resynchronize(reason: nil, onCompletion: nil)
+        } else {
+            syncingCoordinator.ensureNextPageIsSynchronized(lastVisibleIndex: couponViewModels.endIndex-1)
+        }
+    }
 }
 
 
@@ -177,6 +188,7 @@ extension CouponManagementListViewModel: SyncingCoordinatorDelegate {
         switch result {
         case .failure(let error):
             DDLogError("⛔️ Error synchronizing coupons: \(error)")
+            state = .failed
 
         case .success:
             DDLogInfo("Synchronized coupons")

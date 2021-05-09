@@ -105,6 +105,28 @@ final class CouponManagementListViewModelTests: XCTestCase {
         }
     }
 
+    func test_couponStore_calls_completion_handler_with_failure_sets_failed_state() throws {
+        // Given
+        var states = [CouponListState]()
+        sut = CouponManagementListViewModel(siteID: 123,
+                                            storesManager: mockStoresManager,
+                                            didLeaveState: spyDidLeave(state:),
+                                            didEnterState: { state in
+                                                states.append(state)
+                                            })
+        // When
+        sut.sync(pageNumber: 4, pageSize: 8, reason: nil, onCompletion: nil)
+        let action = try XCTUnwrap(mockStoresManager.receivedActions.last as? CouponAction)
+        switch action {
+        case let .synchronizeCoupons(_, _, _, completionHandler):
+            completionHandler(.failure(NSError(domain: "Sync Error", code: 1, userInfo: nil)))
+        default:
+            XCTFail("Expected action to be .synchronizeCoupons")
+        }
+        // Then
+        XCTAssert(states.contains(.failed))
+    }
+
     func test_sync_sets_state_to_loading_when_first_page_loaded_without_data_present() {
         // When
         sut.sync(pageNumber: 1, pageSize: 10, reason: nil, onCompletion: nil)

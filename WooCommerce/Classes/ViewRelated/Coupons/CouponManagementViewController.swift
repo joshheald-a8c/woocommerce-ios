@@ -72,6 +72,8 @@ final class CouponManagementViewController: UIViewController {
             displayPlaceholderCoupons()
         case .coupons:
             tableView?.reloadData()
+        case .failed:
+            displayCouponScreenError()
         case .empty:
             displayNoResultsOverlay()
         case .loadingNextPage:
@@ -257,6 +259,20 @@ extension CouponManagementViewController: UITableViewDataSource {
 }
 
 
+// MARK: - Error state
+//
+extension CouponManagementViewController {
+    private func displayCouponScreenError() {
+        let notice = Notice(title: Localization.errorMessageTitle,
+                            feedbackType: .error,
+                            actionTitle: Localization.errorMessageRetryButtonTitle) { [weak self] in
+            self?.viewModel.retrySyncAfterError()
+        }
+        ServiceLocator.noticePresenter.enqueue(notice: notice)
+    }
+}
+
+
 // MARK: - TableView Delegate
 //
 extension CouponManagementViewController: UITableViewDelegate {
@@ -309,6 +325,20 @@ private extension CouponManagementViewController {
             comment: "The action button text when there are no coupons " +
                 "on the coupon management list. Takes the user to the add " +
                 "coupon screen.")
+
+        static let errorMessageTitle = NSLocalizedString(
+            "Error retrieving coupons",
+            comment: "Error message text displayed in slide up notice " +
+                "on the coupon management list when coupons cannot be " +
+                "retrieved from the API."
+        )
+
+        static let errorMessageRetryButtonTitle = NSLocalizedString(
+            "Retry",
+            comment: "Retry button title for error message on coupon " +
+                "management list when coupons cannot be retrieved from " +
+                "the API."
+        )
     }
 
 }
