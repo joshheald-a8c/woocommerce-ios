@@ -279,6 +279,12 @@ extension CouponManagementViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         viewModel.tableWillDisplayCell(at: indexPath)
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let coupon = viewModel.coupon(at: indexPath) else { return }
+        let editViewController = EditCouponViewController(coupon: coupon)
+        show(editViewController, sender: self)
+    }
 }
 
 

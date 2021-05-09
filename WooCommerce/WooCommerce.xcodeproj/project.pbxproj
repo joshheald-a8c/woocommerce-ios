@@ -373,6 +373,8 @@
 		02FE89C7231FAA4100E85EF8 /* MainTabBarControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FE89C6231FAA4100E85EF8 /* MainTabBarControllerTests.swift */; };
 		02FE89C9231FB31400E85EF8 /* FeatureFlagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FE89C8231FB31400E85EF8 /* FeatureFlagService.swift */; };
 		02FE89CB231FB36600E85EF8 /* DefaultFeatureFlagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FE89CA231FB36600E85EF8 /* DefaultFeatureFlagService.swift */; };
+		0301D98426485E88000F34E9 /* EditCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0301D98326485E88000F34E9 /* EditCouponViewController.swift */; };
+		0301D98A26485EA0000F34E9 /* EditCouponViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0301D98926485EA0000F34E9 /* EditCouponViewController.xib */; };
 		0364F76F263FED8700ABD917 /* MockSyncingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F76E263FED8700ABD917 /* MockSyncingCoordinator.swift */; };
 		037B40F5264424E1003E0636 /* CouponListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B40F4264424E0003E0636 /* CouponListCellViewModel.swift */; };
 		037B40FB26442504003E0636 /* CouponListCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B40FA26442504003E0636 /* CouponListCellViewModelTests.swift */; };
@@ -1551,6 +1553,8 @@
 		02FE89C6231FAA4100E85EF8 /* MainTabBarControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarControllerTests.swift; sourceTree = "<group>"; };
 		02FE89C8231FB31400E85EF8 /* FeatureFlagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagService.swift; sourceTree = "<group>"; };
 		02FE89CA231FB36600E85EF8 /* DefaultFeatureFlagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFeatureFlagService.swift; sourceTree = "<group>"; };
+		0301D98326485E88000F34E9 /* EditCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCouponViewController.swift; sourceTree = "<group>"; };
+		0301D98926485EA0000F34E9 /* EditCouponViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCouponViewController.xib; sourceTree = "<group>"; };
 		0364F76E263FED8700ABD917 /* MockSyncingCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSyncingCoordinator.swift; sourceTree = "<group>"; };
 		037B40F4264424E0003E0636 /* CouponListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListCellViewModel.swift; sourceTree = "<group>"; };
 		037B40FA26442504003E0636 /* CouponListCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListCellViewModelTests.swift; sourceTree = "<group>"; };
@@ -3273,6 +3277,8 @@
 				037B40F4264424E0003E0636 /* CouponListCellViewModel.swift */,
 				037B4110264578CF003E0636 /* AddCouponViewController.swift */,
 				037B411626457902003E0636 /* AddCouponViewController.xib */,
+				0301D98326485E88000F34E9 /* EditCouponViewController.swift */,
+				0301D98926485EA0000F34E9 /* EditCouponViewController.xib */,
 			);
 			path = Coupons;
 			sourceTree = "<group>";
@@ -5829,6 +5835,7 @@
 				B59D1EE121907304009D1978 /* ProductReviewTableViewCell.xib in Resources */,
 				0259D65E2582248D003B1CD6 /* ReprintShippingLabelViewController.xib in Resources */,
 				021E2A1823A9FE5A00B1DE07 /* ProductInventorySettingsViewController.xib in Resources */,
+				0301D98A26485EA0000F34E9 /* EditCouponViewController.xib in Resources */,
 				57448D2A242E777700A56A74 /* EmptyStateViewController.xib in Resources */,
 				D89CFFDE25B44468000E4683 /* ULAccountMismatchViewController.xib in Resources */,
 				452FE64C25657EC100EB54A0 /* LinkedProductsViewController.xib in Resources */,
@@ -6592,6 +6599,7 @@
 				D8610CE2257099E100A5DF27 /* FancyAlertViewController+UnifiedLogin.swift in Sources */,
 				B5980A6321AC879F00EBF596 /* Bundle+Woo.swift in Sources */,
 				B59D1EE5219080B4009D1978 /* Note+Woo.swift in Sources */,
+				0301D98426485E88000F34E9 /* EditCouponViewController.swift in Sources */,
 				02913E9523A774C500707A0C /* UnitInputFormatter.swift in Sources */,
 				451B1747258BD7B600836277 /* AddAttributeOptionsViewModel.swift in Sources */,
 				02F49ADC23BF3A0100FA0BFA /* ErrorSectionHeaderView.swift in Sources */,
